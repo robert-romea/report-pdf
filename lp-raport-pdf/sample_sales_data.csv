@@ -1,0 +1,16 @@
+Date,Product,Region,Sales,Units,Lead_Source
+2025-07-01,Consulting Pack A,North,1500,1,LinkedIn
+2025-07-02,Training Course,West,450,3,Website
+2025-07-03,Consulting Pack B,North,2500,1,Referral
+2025-07-04,Subscription Basic,South,99,1,Facebook Ads
+2025-07-05,Subscription Pro,East,199,1,Facebook Ads
+2025-07-06,Consulting Pack A,West,1500,1,LinkedIn
+2025-07-07,Training Course,North,300,2,Website
+2025-07-08,Subscription Basic,South,99,1,Google Ads
+2025-07-09,Consulting Pack C,East,5000,1,Referral
+2025-07-10,Subscription Pro,West,199,1,Facebook Ads
+2025-07-11,Consulting Pack A,North,1500,1,LinkedIn
+2025-07-12,Training Course,South,150,1,Website
+2025-07-13,Subscription VIP,East,499,1,Google Ads
+2025-07-14,Consulting Pack B,West,2500,1,Referral
+2025-07-15,Subscription Basic,North,99,1,Facebook Ads

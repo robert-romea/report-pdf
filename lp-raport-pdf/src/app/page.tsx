@@ -14,13 +14,16 @@ import {
   Star,
   Rocket,
   FileSpreadsheet,
-  FileCheck
+  FileCheck,
+  Menu,
+  X
 } from "lucide-react";
 
 export default function Home() {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,19 +51,82 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-2">
-
               <span className="text-lg font-semibold">ReportSwift</span>
             </div>
+
+            {/* Desktop Menu */}
             <div className="hidden md:flex items-center gap-8 text-sm text-[#a1a1aa]">
               <a href="#features" className="hover:text-white transition-colors">Beneficii</a>
               <a href="#how-it-works" className="hover:text-white transition-colors">Cum Funcționează</a>
               <a href="#pricing" className="hover:text-white transition-colors">Prețuri</a>
             </div>
-            <Button className="btn-primary text-sm">
-              <span>Înscrie-te</span>
-            </Button>
+
+            <div className="flex items-center gap-4">
+              <a
+                href="http://localhost:3001"
+                className="text-zinc-400 hover:text-white hidden md:flex text-sm font-medium mr-4 transition-colors"
+              >
+                Login
+              </a>
+              <a href="http://localhost:3001/sign-up" className="hidden md:flex">
+                <Button className="btn-primary text-sm">
+                  <span>Înscrie-te</span>
+                </Button>
+              </a>
+
+              {/* Mobile Menu Toggle */}
+              <button
+                className="md:hidden text-zinc-400 hover:text-white"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
         </div>
+
+        {/* Mobile Menu Overlay */}
+        {mobileMenuOpen && (
+          <div className="md:hidden absolute top-16 left-0 right-0 bg-[#0B0B0C] border-b border-[#27272a] p-6 animate-in slide-in-from-top-4">
+            <div className="flex flex-col space-y-4 text-center">
+              <a
+                href="#features"
+                className="text-[#a1a1aa] hover:text-white py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Beneficii
+              </a>
+              <a
+                href="#how-it-works"
+                className="text-[#a1a1aa] hover:text-white py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Cum Funcționează
+              </a>
+              <a
+                href="#pricing"
+                className="text-[#a1a1aa] hover:text-white py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Prețuri
+              </a>
+
+              <div className="pt-4 border-t border-[#27272a] mt-2 flex flex-col gap-3">
+                <a
+                  href="http://localhost:3001"
+                  className="text-center text-zinc-400 hover:text-white py-2"
+                >
+                  Login
+                </a>
+                <a href="http://localhost:3001/sign-up">
+                  <Button className="btn-primary w-full">
+                    <span>Înscrie-te</span>
+                  </Button>
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
@@ -77,46 +143,7 @@ export default function Home() {
             Tu încarci fișierul, noi facem analiza și designul.
           </p>
 
-          {/* Email signup */}
-          {!isSuccess ? (
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-4">
-              <Input
-                type="email"
-                placeholder="adresa@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 h-12 bg-[#18181b] border-[#27272a] text-white placeholder:text-[#71717a] focus:border-[#3b82f6] focus:ring-[#3b82f6]"
-                required
-              />
-              <Button
-                type="submit"
-                className="btn-primary h-12 px-6 flex items-center gap-2"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? (
-                  <span className="flex items-center gap-2">
-                    <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
-                    Se trimite...
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-2">Vreau Acces Early Bird <ArrowRight size={16} /></span>
-                )}
-              </Button>
-            </form>
-          ) : (
-            <div className="max-w-md mx-auto bg-[#111113] border border-[#27272a] rounded-xl p-6 mb-4">
-              <div className="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-3 text-green-400">
-                <Check size={20} />
-              </div>
-              <p className="text-lg font-medium">Ești pe listă!</p>
-              <p className="text-sm text-[#71717a]">Te vom notifica la lansare.</p>
-            </div>
-          )}
 
-          <p className="text-xs text-[#71717a] flex items-center justify-center gap-4">
-            <span className="flex items-center gap-1"><CreditCard size={14} /> Fără card bancar</span>
-            <span className="flex items-center gap-1"><Rocket size={14} /> Acces prioritar primii 100 utilizatori</span>
-          </p>
         </div>
       </section>
 
@@ -394,23 +421,18 @@ export default function Home() {
             Bun Venit la <span className="accent-text">ReportSwift</span>
           </h2>
           <p className="text-[#a1a1aa] mb-8">
-            Dacă ești interesat să testezi produsul nostru și să ne oferi feedback valoros,
-            completează formularul de mai jos și te vom contacta.
+            Nu mai pierde timpul cu rapoarte manuale.
+            Alătură-te celor care deja economisesc ore întregi în fiecare săptămână.
           </p>
 
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-            <Input
-              type="email"
-              placeholder="email@exemplu.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 h-12 bg-[#18181b] border-[#27272a] text-white placeholder:text-[#71717a]"
-              required
-            />
-            <Button type="submit" className="btn-primary h-12 px-8">
-              <span>Înscrie-te Acum</span>
-            </Button>
-          </form>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="http://localhost:3001/sign-up">
+              <Button className="btn-primary h-14 px-8 text-lg w-full sm:w-auto">
+                <span>Începe Gratuit Acum</span>
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </a>
+          </div>
         </div>
       </section>
 
